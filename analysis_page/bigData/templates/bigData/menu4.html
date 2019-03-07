@@ -1,0 +1,237 @@
+{% extends "bigData/index.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+
+  <div class="col-sm-12">
+    <div class="alert  alert-success alert-dismissible fade show" role="alert">
+      <span class="badge badge-pill badge-success">Success</span> 회원 데이터
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+
+<div class="col col-lg-12">
+  <div class='card'>
+    <div class='card-header'>
+      <strong> 버튼 </strong>
+    </div>
+    <div class='card-body text-secondary'>
+      <div class="row">
+        <<div class="col col-lg-12">
+          <div class='col-lg-4'>
+            <strong>성별 : </strong>
+            <span id="radioValue">전체 선택</span>
+            <span>중</span>
+            <form method="post">{% csrf_token %}
+            <div class="btn-group btn-group-toggle" id = "btn_type" data-toggle="buttons">
+              <label class="btn btn-secondary active">
+                <input type="radio" checked name="options" value = "all" autocomplete="off">  전체
+              </label>
+              <label class="btn btn-primary">
+                <input type="radio" name="options" value = "man" autocomplete="off"> 남성
+              </label>
+              <label class="btn btn-danger">
+                <input type="radio" name="options" value = "women" autocomplete="off" > 여성
+              </label>
+            </div>
+            </br>
+          </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class='col-lg-12'>
+        <div class='col-lg-2'>
+          <strong>시간</strong>
+        </div>
+        <div class='col-lg-4'>
+          <!--데이트 시간 알수 있음~!-->
+          <!--Note All functions are accessed via the $('#datetimepicker').datetimepicker(FUNCTION)-->
+          <div class="form-group">
+            <div class="input-group date" id="datetimepicker7" data-target-input="nearest">
+              <input type="text" name="from_date" class="form-control datetimepicker-input" data-target="#datetimepicker7" />
+              <div class="input-group-append" data-target="#datetimepicker7" data-toggle="datetimepicker" >
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='col-lg-4'>
+          <div class="form-group">
+            <div class="input-group date" id="datetimepicker8" data-target-input="nearest">
+              <input type="text" name="to_date" class="form-control datetimepicker-input" data-target="#datetimepicker8" />
+              <div class="input-group-append" data-target="#datetimepicker8" data-toggle="datetimepicker" >
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='col-lg-2'>
+          <input class="btn btn-primary btn-sm" type="submit" value="조회"/>
+        </div>
+      </form>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+<div class="col col-lg-12">
+  <div class='card'>
+    <div class='card-header'>
+      <strong> 그래프 그려주기 </strong>
+    </div>
+    <div class='card-body text-secondary'>
+      <div class="row">
+        <div class="col-ld-2 text-center">
+            <div id="pieChart" ></div>
+        </div>
+        <div class="col-ld-6 text-center">
+            <div id="Chart2" >여기에 차트다른거</div>
+        </div>
+    </div>
+    </div>
+      <div class="row">
+        <div class='col-lg-12'>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+<script async="" src="//www.google-analytics.com/analytics.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.4/d3.min.js"></script>
+<script type="text/javascript" src="{% static 'js/d3pie.min.js' %}"></script>
+<script>
+$('#btn_type').click(function () {
+        var radioVal = $('input[name="options"]:checked').val();
+        if(radioVal == "all")
+        {
+          document.getElementById("radioValue").innerHTML = "전체 선택";
+        }
+        else if(radioVal == "man"){
+            document.getElementById("radioValue").innerHTML = "남자 선택";
+        }
+        else if(radioVal == "women"){
+            document.getElementById("radioValue").innerHTML = "여자 선택";
+        }
+    });
+
+$(function () {
+      $('#datetimepicker7').datetimepicker();
+      $('#datetimepicker8').datetimepicker({
+          useCurrent: false
+      });
+      $("#datetimepicker7").on("change.datetimepicker", function (e) {
+          $('#datetimepicker8').datetimepicker('minDate', e.date);
+      });
+      $("#datetimepicker8").on("change.datetimepicker", function (e) {
+          $('#datetimepicker7').datetimepicker('maxDate', e.date);
+      });
+  });
+
+        var pie = new d3pie("pieChart", {
+            "header": {
+            "title": {
+            "text": "씨앗발아확인",
+            "fontSize": 20,
+            "font": "verdana",
+            "fontweight" : ""
+
+        },
+        "titleSubtitlePadding": 12
+        },
+        "footer": {
+        "text": "",
+        "color": "#999999",
+        "fontSize": 15,
+        "font": "open sans",
+        "location": "bottom-center"
+        },
+        "size": {
+        "canvasHeight": 400,
+        "canvasWidth": 590,
+        "pieOuterRadius": "88%"
+        },
+        "data": {
+          "content": [
+            {
+                "label": "Google",
+                "value": 264131,
+                "color": "#D78902"
+            },
+            {
+                "label": "Twitter",
+                "value": 118812,
+                "color": "#04C3FD"
+            },
+            {
+                "label": "Facebook",
+                "value": 157618,
+                "color": "#0457FD"
+            },
+            {
+                "label": "Yahoo",
+                "value": 114384,
+                "color": "#FD0404"
+            }
+        ]
+        }
+        ,tooltips:{
+        enabled: true,
+        type: "placeholder",
+        string: "{label}, {value}, {percentage}%"
+        }
+        ,
+        "labels": {
+        "outer": {
+        "pieDistance": 32
+        },
+        "inner": {
+        "format": "value"
+        },
+        "mainLabel": {
+        "font": "verdana"
+        },
+        "percentage": {
+        "color": "#e1e1e1",
+        "font": "verdana",
+        "decimalPlaces": 0
+        },
+        "value": {
+        "color": "#e1e1e1",
+        "font": "verdana"
+        },
+        "lines": {
+        "enabled": true,
+        "color": "#cccccc"
+        },
+        "truncation": {
+        "enabled": true
+        }
+        },
+        "effects": {
+        "pullOutSegmentOnClick": {
+          "effect": "linear",
+          "speed": 400,
+          "size": 15
+          }
+          }
+        });
+
+
+
+        </script>
+<!-- Right Panel -->
+{% endblock%}

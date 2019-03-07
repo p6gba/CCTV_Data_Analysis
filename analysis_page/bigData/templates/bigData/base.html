@@ -1,0 +1,84 @@
+{% extends "bigData/index.html" %}
+{% block content %}
+<ImageSection>
+
+  {% if msg %}
+  <script>
+  alert('{{msg}}');
+  </script>
+  {% endif%}
+  <header>
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-12">
+                  <!--<img class="img-responsive" src="img/profile.png" alt="">-->
+                  <div class="intro-text">
+                      <span class="name">DATA ANAYLYSIS</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="container2">
+        <div class="col-lg-4 col-md-6">
+          <div class="card">
+              <div class="card-header">
+                  <strong class="card-title mb-3">Profile Card</strong>
+              </div>
+              <div class="card-body">
+                  <div class="mx-auto d-block">
+                     <!--<img class="rounded-circle mx-auto d-block" src="images/suho.jpg" alt="Card image cap">-->
+                      <h5 class="text-sm-center mt-2 mb-1">Minseo Kwon</h5>
+                      <div class="location text-sm-center"><i class="fa fa-map-marker"></i> Chungbuk National Univ.</div>
+                  </div>
+                  <hr>
+                  <div class="card-text text-sm-center">
+                      <a href="mailto:minseo1616@daum.net"><i class="fa fa-envelope-o"></i></a>
+                      <a href="https://github.com/minseo1616"><i class="fa fa-github pr-1"></i></a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title mb-3">Profile Card</strong>
+            </div>
+            <div class="card-body">
+                <div class="mx-auto d-block">
+                   <!-- <img class="rounded-circle mx-auto d-block" src="images/suho.jpg" alt="Card image cap"> -->
+                    <h5 class="text-sm-center mt-2 mb-1">Woojoo Kim</h5>
+                    <div class="location text-sm-center"><i class="fa fa-map-marker"></i> Chungbuk National Univ.</div>
+                </div>
+                <hr>
+                <div class="card-text text-sm-center">
+                    <a href="mailto:kyr1217@gmail.com"><i class="fa fa-envelope-o"></i></a>
+                    <a href="https://github.com/kimwoojoo"><i class="fa fa-github pr-1"></i></a>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="card">
+          <div class="card-header">
+              <strong class="card-title mb-3">Profile Card</strong>
+          </div>
+          <div class="card-body">
+              <div class="mx-auto d-block">
+                 <!-- <img class="rounded-circle mx-auto d-block" src="images/suho.jpg" alt="Card image cap"> -->
+                  <h5 class="text-sm-center mt-2 mb-1">Jaejun Lee</h5>
+                  <div class="location text-sm-center"><i class="fa fa-map-marker"></i> Chungbuk National Univ.</div>
+              </div>
+              <hr>
+              <div class="card-text text-sm-center">
+                  <a href="mailto:ljj6296@naver.com"><i class="fa fa-envelope-o"></i></a>
+                  <a href="https://github.com/p6gba"><i class="fa fa-github pr-1"></i></a>
+              </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+</ImageSection>
+{% endblock%}
